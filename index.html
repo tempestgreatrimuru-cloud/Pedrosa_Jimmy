@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jimmy Pedrosa Portfolio</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    :root {
+        --primary-color: #667eea;
+        --secondary-color: #764ba2;
+        --accent-color: #f093fb;
+        --dark-color: #2d3748;
+        --light-color: #f7fafc;
+        --white: #ffffff;
+        --shadow: 0 10px 30px rgba(0,0,0,0.1);
+        --shadow-hover: 0 20px 60px rgba(0,0,0,0.15);
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        color: var(--dark-color);
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+
+    /* Animated background particles */
+    .bg-animation {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+    }
+
+    .particle {
+        position: absolute;
+        background: rgba(255,255,255,0.1);
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(180deg); }
+    }
+
+    /* Smooth scroll behavior */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Navigation */
+    nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(255,255,255,0.95);
+        backdrop-filter: blur(10px);
+        padding: 15px 0;
+        z-index: 1000;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    }
+
+    nav ul {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        gap: 30px;
+    }
+
+    nav a {
+        text-decoration: none;
+        color: var(--dark-color);
+        font-weight: 500;
+        transition: color 0.3s ease;
+        position: relative;
+    }
+
+    nav a:hover {
+        color: var(--primary-color);
+    }
+
+    nav a::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary-color);
+        transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+        width: 100%;
+    }
+
+    /* Header with enhanced animations */
+    header {
+        text-align: center;
+        padding: 120px 20px 80px;
+        background: transparent;
+        color: white;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+    }
+
+    .profile-container {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 30px;
+    }
+
+    header img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        border: 4px solid rgba(255,255,255,0.3);
+        box-shadow: var(--shadow-hover);
+        transition: all 0.4s ease;
+        animation: profilePulse 2s ease-in-out infinite;
+    }
+
+    @keyframes profilePulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+        50% { box-shadow: 0 0 0 20px rgba(255,255,255,0); }
+    }
+
+    header img:hover {
+        transform: scale(1.05);
+    }
+
+    .typewriter {
+        overflow: hidden;
+        border-right: .15em solid var(--accent-color);
+        white-space: nowrap;
+        margin: 0 auto;
+        animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+    }
+
+    @keyframes typing {
+        from { width: 0 }
+        to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+        from, to { border-color: transparent }
+        50% { border-color: var(--accent-color); }
+    }
+
+    header h1 {
+        font-size: 3.5em;
+        font-weight: 700;
+        margin-bottom: 15px;
+        background: linear-gradient(45deg, #fff, var(--accent-color));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    header p {
+        font-size: 1.4em;
+        margin-bottom: 30px;
+        font-weight: 300;
+        opacity: 0.9;
+    }
+
+    .cta-button {
+        display: inline-block;
+        padding: 15px 35px;
+        background: linear-gradient(45deg, var(--accent-color), var(--primary-color));
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow);
+        margin-top: 20px;
+    }
+
+    .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+    }
+
+    /* Enhanced sections */
+    section {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 40px;
+        background: var(--white);
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateY(50px);
+        animation: fadeInUp 0.8s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    section:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-hover);
+    }
+
+    h2 {
+        color: var(--dark-color);
+        margin-bottom: 25px;
+        font-weight: 600;
+        font-size: 2.2em;
+        text-align: center;
+        position: relative;
+    }
+
+    h2::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+        border-radius: 2px;
+    }
+
+    /* Stats with counter animation */
+    .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 25px;
+        margin: 30px 0;
+    }
+
+    .stat {
+        background: linear-gradient(135deg, var(--light-color), #e2e8f0);
+        border-radius: 15px;
+        padding: 30px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .stat:hover {
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: var(--shadow-hover);
+    }
+
+    .stat h3 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+        background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+    }
+
+    .stat p {
+        font-weight: 500;
+        color: #64748b;
+        font-size: 1.1em;
+    }
+
+    /* Enhanced skills section */
+    .skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 20px;
+        justify-content: center;
+    }
+
+    .skill {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        border-radius: 25px;
+        padding: 12px 24px;
+        font-size: 0.95em;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .skill::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .skill:hover::before {
+        left: 100%;
+    }
+
+    .skill:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    /* Quote section enhancement */
+    .quote {
+        font-style: italic;
+        background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+        padding: 25px;
+        border-radius: 15px;
+        margin: 30px 0;
+        box-shadow: var(--shadow);
+        text-align: center;
+        font-size: 1.3em;
+        position: relative;
+        font-weight: 500;
+    }
+
+    .quote::before {
+        content: '"';
+        font-size: 4em;
+        color: rgba(0,0,0,0.1);
+        position: absolute;
+        top: -10px;
+        left: 20px;
+        line-height: 1;
+    }
+
+    .quote::after {
+        content: '"';
+        font-size: 4em;
+        color: rgba(0,0,0,0.1);
+        position: absolute;
+        bottom: -30px;
+        right: 20px;
+        line-height: 1;
+    }
+
+    /* Enhanced contact form */
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .input-group {
+        position: relative;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        padding: 15px 20px;
+        border-radius: 12px;
+        border: 2px solid #e2e8f0;
+        width: 100%;
+        font-size: 1em;
+        background: var(--light-color);
+        transition: all 0.3s ease;
+        font-family: inherit;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        background: white;
+    }
+
+    .contact-form button {
+        padding: 15px 30px;
+        border: none;
+        border-radius: 12px;
+        background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        font-size: 1.1em;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow);
+    }
+
+    .contact-form button:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+    }
+
+    .contact-form button:active {
+        transform: translateY(0);
+    }
+
+    .contacts {
+        margin-top: 25px;
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+    }
+
+    .contacts a {
+        padding: 12px 25px;
+        background: linear-gradient(45deg, var(--dark-color), #4a5568);
+        color: white;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        box-shadow: var(--shadow);
+    }
+
+    .contacts a:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+    }
+
+    /* Footer enhancement */
+    footer {
+        text-align: center;
+        padding: 30px;
+        margin-top: 50px;
+        color: white;
+        background: rgba(0,0,0,0.1);
+        backdrop-filter: blur(10px);
+    }
+
+    /* Scroll to top button */
+    .scroll-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow);
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .scroll-top.visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .scroll-top:hover {
+        transform: translateY(-3px) scale(1.1);
+        box-shadow: var(--shadow-hover);
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+        nav ul {
+            gap: 15px;
+        }
+        
+        nav a {
+            font-size: 0.9em;
+        }
+
+        header {
+            padding: 100px 20px 60px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+        }
+
+        header img {
+            width: 150px;
+            height: 150px;
+        }
+
+        section {
+            margin: 20px;
+            padding: 25px;
+        }
+
+        .stats {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .contacts {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+        }
+    }
+
+    /* Loading animation */
+    .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+    }
+
+    .loading-screen.hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .loader {
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(255,255,255,0.3);
+        border-top: 3px solid white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div class="loading-screen" id="loadingScreen">
+    <div class="loader"></div>
+</div>
+
+<!-- Background Animation -->
+<div class="bg-animation" id="bgAnimation"></div>
+
+<!-- Navigation -->
+<nav>
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- Header -->
+<header id="home">
+    <div class="profile-container">
+        <img src="dp.jpeg" alt="Profile Picture">
+    </div>
+    <h1>Jimmy B. Pedrosa Jr.</h1>
+    <p class="typewriter">BSIT Student / Aspiring Developer</p>
+    <a href="#about" class="cta-button">Learn More About Me</a>
+</header>
+
+<!-- About Section -->
+<section class="about-me" id="about">
+    <h2>About Me</h2>
+    <p>I am a BSIT student at Davao del Sur State College. While BSIT wasn't my first choice, I've discovered a genuine passion for technology and creating software applications that can make people's lives easier and more efficient.</p>
+    <p>As an introvert, I find IT particularly appealing because it allows me to work remotely, focus deeply on coding, and solve complex problems in a comfortable environment that suits my personality.</p>
+</section>
+
+<!-- Stats Section -->
+<section class="stats">
+    <div class="stat">
+        <h3 data-count="1">0</h3>
+        <p>Project Completed</p>
+    </div>
+    <div class="stat">
+        <h3 data-count="3">0</h3>
+        <p>Years Learning IT</p>
+    </div>
+    <div class="stat">
+        <h3 data-count="5">0</h3>
+        <p>Technologies Mastered</p>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section id="skills">
+    <h2>Technical Skills</h2>
+    <div class="skills">
+        <div class="skill">HTML5</div>
+        <div class="skill">CSS3</div>
+        <div class="skill">JavaScript</div>
+        <div class="skill">MySQL Workbench</div>
+        <div class="skill">Programming Logic</div>
+        <div class="skill">Web Development</div>
+        <div class="skill">Database Design</div>
+    </div>
+</section>
+
+<!-- Quote Section -->
+<section>
+    <h2>Philosophy</h2>
+    <div class="quote">
+        Consistency and discipline are the keys to success in life.
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact">
+    <h2>Get In Touch</h2>
+    <form class="contact-form" id="contactForm">
+        <div class="input-group">
+            <input type="text" placeholder="Your Name" required>
+        </div>
+        <div class="input-group">
+            <input type="email" placeholder="Your Email" required>
+        </div>
+        <div class="input-group">
+            <textarea rows="5" placeholder="Your Message" required></textarea>
+        </div>
+        <button type="submit">Send Message</button>
+    </form>
+    <div class="contacts">
+        <a href="https://facebook.com/" target="_blank">Facebook</a>
+        <a href="mailto:tempestgreatrimuru@gmail.com">Email</a>
+        <a href="https://github.com/" target="_blank">GitHub</a>
+    </div>
+</section>
+
+<footer>
+    © 2025 Jimmy B. Pedrosa Jr. All rights reserved.
+</footer>
+
+<!-- Scroll to Top Button -->
+<button class="scroll-top" id="scrollTop">↑</button>
+
+<script>
+// Loading screen
+window.addEventListener('load', function() {
+    setTimeout(() => {
+        document.getElementById('loadingScreen').classList.add('hidden');
+    }, 1000);
+});
+
+// Background particles animation
+function createParticles() {
+    const bgAnimation = document.getElementById('bgAnimation');
+    const particleCount = 20;
+
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        const size = Math.random() * 60 + 20;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 6 + 's';
+        particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+        
+        bgAnimation.appendChild(particle);
+    }
+}
+
+// Counter animation for stats
+function animateCounters() {
+    const counters = document.querySelectorAll('[data-count]');
+    
+    counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-count'));
+        const duration = 2000;
+        const increment = target / (duration / 16);
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            counter.textContent = Math.floor(current) + (target > 3 ? '+' : '');
+        }, 16);
+    });
+}
+
+// Scroll to top functionality
+const scrollTopBtn = document.getElementById('scrollTop');
+
+window.addEventListener('scroll', function() {
+    if (window.pageYOffset > 300) {
+        scrollTopBtn.classList.add('visible');
+    } else {
+        scrollTopBtn.classList.remove('visible');
+    }
+});
+
+scrollTopBtn.addEventListener('click', function() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+// Contact form handling
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Simple form validation and feedback
+    const button = this.querySelector('button');
+    const originalText = button.textContent;
+    
+    button.textContent = 'Sending...';
+    button.disabled = true;
+    
+    // Simulate sending
+    setTimeout(() => {
+        button.textContent = 'Message Sent!';
+        setTimeout(() => {
+            button.textContent = originalText;
+            button.disabled = false;
+            this.reset();
+        }, 2000);
+    }, 1000);
+});
+
+// Smooth scrolling for navigation links
+document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        
+        if (targetSection) {
+            const offsetTop = targetSection.offsetTop - 80;
+            window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Intersection Observer for animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.animationPlayState = 'running';
+            if (entry.target.classList.contains('stats')) {
+                animateCounters();
+            }
+        }
+    });
+}, observerOptions);
+
+// Observe all sections
+document.querySelectorAll('section').forEach(section => {
+    observer.observe(section);
+});
+
+// Initialize
+createParticles();
+
+// Add some interactive feedback to skills
+document.querySelectorAll('.skill').forEach(skill => {
+    skill.addEventListener('click', function() {
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            this.style.transform = '';
+        }, 150);
+    });
+});
+</script>
+
+</body>
+</html>
